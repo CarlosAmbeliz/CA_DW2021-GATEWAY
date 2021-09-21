@@ -1,0 +1,29 @@
+## YAML Template.
+---
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 2000
+hystrix.command.default.execution.isolation.strategy: THREAD
+
+spring:
+  application:
+    name: dw-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+
+      routes:
+        - id: userApi
+          uri: https://localhost:9902
+          predicates:
+            - Path=/api/user/**
+        - id: contactApi
+          uri: https://localhost:9903
+          predicates:
+            - Path=/api/contact/**
+
+
+server:
+  port: 9900
+
